@@ -1,0 +1,68 @@
+<div class="row mt-4">
+  <div class="col-md-12">
+    <%= form_tag favorite_list_path, method: :get do %>
+      <div class="input-group w-50 float-right">
+
+        <%= text_field_tag :title, params[:title], class: "form-control crounded", placeholder: "Search by title" %>
+        <%= button_tag "Search", name: nil, class: "btn btn-outline-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br>
+<% if @movies.present? %>
+  <div class="mt-2 d-flex justify-content-between">
+    <h3>Movies</h3>
+  </div>
+  <hr>
+  <div class="row mt-4">
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @movies.each do |movie| %>
+          <% movie_presenter = MoviePresenter.new(movie) %>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                    src="<%=  movie_presenter.image %>"
+                    alt=""/>
+                <div class="ms-3">
+                  <p class="fw-bold mb-1"><%= movie_presenter.title %></p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1"><%= movie_presenter.overview %></p>
+            </td>
+            <td>
+              <% unless @fav_movies_title&.include?(movie["original_title"]) %>
+                <%= button_to "Add to favorite", favorite_toggle_path(movie_id: movie["id"], favorite: true), method: :post, class: , class: "btn btn-outline-primary" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+<br>
+<% if @fav_movies.present? %>
+  <div class="mt-2 d-flex justify-content-between">
+    <h3>Favorite Movie List</h3>
+    <%= link_to 'Movies List', root_path, class: "btn btn-outline-primary" %>
+  </div>
+  <hr>
+  <div class="row mt-4">
+    <% @fav_movies.each do |fav_movie| %>
+      <%= render "movie", movie: fav_movie, favorite: false %>
+    <% end %>
+  </div>
+<% end %>
+<br>

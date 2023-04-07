@@ -1,3 +1,5 @@
-require "tmdb/api_client"
+# frozen_string_literal: true
 
-TMDB.api_key = ENV.fetch("TMDB_API_KEY")
+require 'tmdb/api_client'
+
+TMDB.api_key = ENV.fetch('TMDB_API_KEY')

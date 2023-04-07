@@ -1,0 +1,17 @@
+<% movie_presenter = MoviePresenter.new(movie) %>
+<div class="col-md-4 mb-4">
+  <div class="card h-100">
+    <img class="card-img-top" src="<%=  movie_presenter.image %>" alt="Card image cap" height="350" width="415">
+    <div class="card-body">
+      <h5 class="card-title"><%= movie_presenter.title %></h5>
+      <p class="card-text cut-text"><%= movie_presenter.overview %></p>
+    </div>
+    <div class="card-footer d-flex justify-content-center">
+      <% if favorite %>
+        <%= button_to "Add to favorite", favorite_toggle_path(movie_id: movie["id"], favorite: true), method: :post, class: "btn btn-outline-primary" %>
+      <% else %>
+        <%= button_to "Remove from favorite", favorite_toggle_path(movie_id: movie["id"], favorite: false), method: :post, class: "btn btn-outline-danger" %>
+      <% end %>
+    </div>
+  </div>
+</div>

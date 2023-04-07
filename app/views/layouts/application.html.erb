@@ -11,6 +11,15 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="grids-page">
+      <div class="container">
+        <% if notice %>
+          <div class="alert alert-primary" role="alert">
+            <%= notice %>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
